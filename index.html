@@ -1,0 +1,108 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PRODUCT DETAILS</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background: linear-gradient(135deg, #48ffea, #2a5298);
+            padding:30px;
+        }
+
+        h2{
+            text-align:center;
+            color:black;
+            letter-spacing:1px;
+        }
+
+        form{
+            background: #ffffff;
+            padding:20px;
+            width:300px;
+            margin:auto;
+            border-radius:12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        input{
+            width:90%;
+            padding:10px;
+            margin:10px 0;
+            border:2px solid #2a5298;
+            border-radius:6px;
+            outline:none;
+            transition:0.3s;
+        }
+
+        input:focus{
+            border-color:#ff6b6b;
+            box-shadow:0 0 5px #ff6b6b;
+        }
+
+        button{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            background:#ff6b6b;
+            color:white;
+            border:none;
+            border-radius:6px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#e63946;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>PRODUCT INFORMATION</h2>
+
+    <form id="productForm">
+        <input type="text" id="title" placeholder="Product Name" required>
+        <input type="number" id="price" placeholder="Product Price" required>
+        <input type="text" id="image" placeholder="Image URL">
+        <input type="text" id="category" placeholder="Category">
+        <button type="submit">PRODUCT ADDING</button>
+    </form>
+
+    <script>
+        let products = JSON.parse(localStorage.getItem("products")) || [];
+
+        document.getElementById("productForm").addEventListener("submit", function(e){
+            e.preventDefault();  
+
+            let title = document.getElementById("title").value;
+            let price = Number(document.getElementById("price").value);
+            let image = document.getElementById("image").value;
+            let category = document.getElementById("category").value;
+
+            if(title === "" || price === ""){
+                alert("Please enter product name and price");
+                return;
+            }
+
+            let product = {
+                title,
+                price,
+                image,
+                category
+            };
+
+            products.push(product);
+            localStorage.setItem("products", JSON.stringify(products));
+
+            alert("Product Added Successfully!");
+            document.getElementById("productForm").reset();
+        });
+    </script>
+
+</body>
+</html>
